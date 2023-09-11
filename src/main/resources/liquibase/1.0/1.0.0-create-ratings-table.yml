@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: create ratings table
+      author: Agil Aghamirzayev
+      description: create ratings to store product rates
+      changes:
+        - createTable:
+            tableName: ratings
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rate
+                  type: int
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValue: now()
+                  remarks: created date of the column
+                  constraints:
+                    nullable: false
+              - createIndex:
+                  indexName: idx_rate
+                  tableName: ratings
+                  columns:
+                    - column:
+                        name: rate
