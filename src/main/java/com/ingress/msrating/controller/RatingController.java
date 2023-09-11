@@ -2,6 +2,7 @@ package com.ingress.msrating.controller;
 
 import com.ingress.msrating.model.request.RatingRequest;
 import com.ingress.msrating.service.RatingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class RatingController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public void rate(@RequestHeader("user-id") Long userId,
-                     @RequestBody RatingRequest ratingRequest) {
+                     @RequestBody @Valid RatingRequest ratingRequest) {
 
         ratingService.rate(userId, ratingRequest);
     }
