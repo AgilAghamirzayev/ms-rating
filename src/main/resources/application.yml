@@ -6,9 +6,17 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/rating
     username: postgres
-    password: password
+    password: postgres
+  rabbitmq:
+    addresses: localhost:5672
+    username: user
+    password: user
 
   liquibase:
     change-log: classpath:liquibase/changelog-master.yml
   jpa:
     show-sql: true
+
+rabbitmq:
+  queue:
+    name: rate_statistics_q
