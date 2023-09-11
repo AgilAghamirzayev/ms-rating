@@ -32,7 +32,7 @@ public class RatingService {
         Rating savedRating = ratingRepository.save(rating);
         log.info("Saved rating id: {}", savedRating.getId());
 
-        RatingStatistic rateStatistic = getRateStatistic(savedRating.getProductId());
+        RatingStatistic rateStatistic = getRateStatistic(32424L);
         rateStatisticProducer.publishMessage(ratingQueue, rateStatistic);
     }
 
