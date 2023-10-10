@@ -1,4 +1,4 @@
-package com.ingress.msrating.entity;
+package com.ingress.msrating.model.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

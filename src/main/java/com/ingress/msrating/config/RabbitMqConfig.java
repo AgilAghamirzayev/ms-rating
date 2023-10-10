@@ -13,8 +13,13 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqConfig {
 
     @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
+    @Bean
     public MessageConverter messageConverter() {
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = objectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return new Jackson2JsonMessageConverter(objectMapper);
     }
