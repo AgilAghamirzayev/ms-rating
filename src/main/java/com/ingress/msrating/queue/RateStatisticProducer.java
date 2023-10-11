@@ -2,7 +2,6 @@ package com.ingress.msrating.queue;
 
 import com.ingress.msrating.annotation.Log;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
 

@@ -1,17 +1,14 @@
 package com.ingress.msrating.exception.handler;
 
-import static com.ingress.msrating.model.constants.ExceptionConstants.METHOD_ARGUMENT_NOT_VALID;
 import static com.ingress.msrating.model.constants.ExceptionConstants.UNEXPECTED_EXCEPTION;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import com.ingress.msrating.exception.ResourceNotFoundException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -44,7 +41,7 @@ public class CustomExceptionHandler {
         return ExceptionResponse.builder().validationErrors(errorsForBadRequest).build();
     }
 
-    public static List<Map<String, String>> getErrorsForBadRequest(MethodArgumentNotValidException ex) {
+    private List<Map<String, String>> getErrorsForBadRequest(MethodArgumentNotValidException ex) {
         return ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> {
                     Map<String, String> errorMap = new HashMap<>();

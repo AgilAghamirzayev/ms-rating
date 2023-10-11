@@ -1,10 +1,10 @@
 package com.ingress.msrating.aspect;
 
+import static java.util.Objects.nonNull;
+
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.ingress.msrating.annotation.LogIgnore;
-
-import static java.util.Objects.nonNull;
 
 public class LogIgnoreIntrospector extends JacksonAnnotationIntrospector {
 

@@ -1,8 +1,12 @@
 package com.ingress.msrating.aspect;
 
+import static com.ingress.msrating.model.constants.LogColorsConstants.ANSI_GREEN;
+import static com.ingress.msrating.model.constants.LogColorsConstants.ANSI_RED;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingress.msrating.annotation.LogIgnore;
+import java.lang.reflect.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,11 +14,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Parameter;
-
-import static com.ingress.msrating.model.constants.LogColorsConstants.ANSI_GREEN;
-import static com.ingress.msrating.model.constants.LogColorsConstants.ANSI_RED;
 
 @Log4j2
 @Aspect

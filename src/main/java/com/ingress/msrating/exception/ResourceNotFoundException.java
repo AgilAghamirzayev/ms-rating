@@ -2,7 +2,6 @@ package com.ingress.msrating.exception;
 
 import com.ingress.msrating.model.constants.ExceptionConstants;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 public class ResourceNotFoundException extends RuntimeException {

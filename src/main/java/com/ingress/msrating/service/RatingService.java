@@ -4,16 +4,13 @@ import static com.ingress.msrating.mapper.RatingMapper.RATING_MAPPER;
 import static com.ingress.msrating.model.constants.ExceptionConstants.RATING_NOT_FOUND;
 
 import com.ingress.msrating.annotation.Log;
-import com.ingress.msrating.dao.entity.RatingEntity;
+import com.ingress.msrating.dao.repository.RatingRepository;
 import com.ingress.msrating.exception.ResourceNotFoundException;
 import com.ingress.msrating.model.client.RatingStatistic;
 import com.ingress.msrating.model.constants.EnvironmentConstants;
 import com.ingress.msrating.model.request.RatingRequest;
 import com.ingress.msrating.queue.RateStatisticProducer;
-import com.ingress.msrating.dao.repository.RatingRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Log
