@@ -1,15 +1,14 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.3'
-    id 'io.spring.dependency-management' version '1.1.3'
+    id 'org.springframework.boot' version "$springframeworkVersion"
+    id 'io.spring.dependency-management' version "$dependencyManagementVersion"
     id 'groovy'
 }
 
 group = 'com.ingress'
-version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '17'
+    sourceCompatibility = "$javaVersion"
 }
 
 configurations {
@@ -29,13 +28,14 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-data-jpa',
             'org.springframework.boot:spring-boot-starter-validation',
             'org.springframework.boot:spring-boot-starter-web',
-            'org.liquibase:liquibase-core'
+            'org.liquibase:liquibase-core',
+            "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocOpenapiVersion"
     )
 
     // testing
     implementation(
-            'io.github.benas:random-beans:3.9.0',
-            'org.apache.groovy:groovy:4.0.13'
+            "io.github.benas:random-beans:$randomBeansVersion",
+            "org.apache.groovy:groovy:$grovyVersion"
     )
 
     compileOnly 'org.projectlombok:lombok'
@@ -45,7 +45,7 @@ dependencies {
     testImplementation(
             'org.springframework.boot:spring-boot-starter-test',
             'org.springframework.amqp:spring-rabbit-test',
-            'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
+            "org.spockframework:spock-spring:$spockVersion"
     )
 }
 

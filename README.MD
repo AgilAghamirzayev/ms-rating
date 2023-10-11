@@ -1,22 +1,50 @@
-# This is product rating microservice
+# ms-rating
 
-![img.png](img.png)
+# Table of description
+
+✅ [**Description**](#description)
+
+✅ [**Run locally**](#run-locally)
+
+✅ [**Tech Stack**](#tech-stack)
+
+✅ [**Application schema**](#application-schema)
+
+✅ [**Database schema**](#database-schema)
+
+✅ [**Swagger Link**](#swagger-link)
+
+# Description
+
+## This is a microservice for rating products
+
+# Run locally
+
+### please set at environment variables before running
+
+    spring:
+      datasource:
+        username: postgres
+        password: postgres
+      rabbitmq:
+        username: user
+        password: user
 
 
-* Application port: 8888
-* RabbitMq port:
-    - 5672  -> RabbitMQ default port for AMQP
-    - 15672 -> RabbitMQ Management UI port
+```bash
+java -jar build/libs/ms-rating.jar
+```
+# Tech stack
 
+- Java 17
+- Spring Boot 3.1.3
+- PostgreSQL
 
-* If user want to rate a product he/she will select one of the 5 start.
-* Request header: user-id -> id of the user
-* Request body: productId and rate number
+# Application schema
+![app-schema](app-schema.png)
 
-          {
-              "productId": 1,
-              "rate": 5
-          }
+# Database schema
+![db-schema](db-schema.png)
 
-`curl -X POST -H "user-id: 12" -H "Content-Type: application/json" -d '{"productId": 1, "rate": 5}' http://localhost:8888/v1/ratings
-`
+# Swagger Link
+[Swagger](http://localhost:8888/swagger-ui/index.html)
