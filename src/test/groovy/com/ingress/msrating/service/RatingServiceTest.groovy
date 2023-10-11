@@ -11,9 +11,10 @@ import io.github.benas.randombeans.api.EnhancedRandom
 import spock.lang.Specification
 
 class RatingServiceTest extends Specification {
+
     EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandom()
-    RateStatisticProducer rateStatisticProducer;
-    EnvironmentConstants environmentConstants;
+    RateStatisticProducer rateStatisticProducer
+    EnvironmentConstants environmentConstants
     RatingRepository ratingRepository
     RatingService ratingService
 
@@ -26,8 +27,8 @@ class RatingServiceTest extends Specification {
 
     def "Rate product with valid request"() {
         given:
-        def userId = random.nextObject(Long)
-        def ratingRequest = random.nextObject(RatingRequest)
+        def userId = 2L
+        def ratingRequest = new RatingRequest(1L, 4)
         def ratingStatistic = random.nextObject(RatingStatistic)
         def entity = RatingEntity.builder()
                 .userId(userId)
@@ -40,7 +41,7 @@ class RatingServiceTest extends Specification {
 
         then:
         1 * ratingRepository.save(entity)
-        1 * ratingRepository.getRatingStatistic(ratingRequest.productId()) >> ratingStatistic
+        1 * ratingRepository.getRatingStatistic(ratingRequest.productId()) >> Optional.of(ratingStatistic)
         1 * rateStatisticProducer.publishMessage(environmentConstants.ratingQueue, ratingStatistic)
     }
 
