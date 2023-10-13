@@ -9,7 +9,7 @@ import com.ingress.msrating.exception.ResourceNotFoundException;
 import com.ingress.msrating.model.client.RatingStatistic;
 import com.ingress.msrating.model.constants.EnvironmentConstants;
 import com.ingress.msrating.model.request.RatingRequest;
-import com.ingress.msrating.queue.RateStatisticProducer;
+import com.ingress.msrating.queue.RateStatisticQueue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +20,13 @@ public class RatingService {
 
     private final RatingRepository ratingRepository;
     private final EnvironmentConstants environmentConstants;
-    private final RateStatisticProducer rateStatisticProducer;
+    private final RateStatisticQueue rateStatisticQueue;
 
     public void rate(Long userId, RatingRequest ratingRequest) {
         var rating = RATING_MAPPER.toRatingEntity(userId, ratingRequest);
-        var savedRating = ratingRepository.save(rating);
-        var rateStatistic = getRateStatistic(savedRating.getProductId());
-        rateStatisticProducer.publishMessage(environmentConstants.getRatingQueue(), rateStatistic);
+        ratingRepository.save(rating);
+        var rateStatistic = getRateStatistic(rating.getProductId());
+        rateStatisticQueue.publishMessage(environmentConstants.getRatingQueue(), rateStatistic);
     }
 
     private RatingStatistic getRateStatistic(Long productId) {

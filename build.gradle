@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version "$springframeworkVersion"
     id 'io.spring.dependency-management' version "$dependencyManagementVersion"
     id 'groovy'
+    id 'jacoco'
 }
 
 group = 'com.ingress'
@@ -51,4 +52,27 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    "com/ingress/msrating/annotation/**",
+                    "com/ingress/msrating/aspect/**",
+                    "com/ingress/msrating/config/**",
+                    "com/ingress/msrating/dao/**",
+                    "com/ingress/msrating/exception/**",
+                    "com/ingress/msrating/model/**"
+            ])
+        }))
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.6"
 }

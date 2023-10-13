@@ -38,6 +38,7 @@ public class CustomExceptionHandler {
         log.error("MethodNotAllowedException: ", ex);
         return ExceptionResponse.builder().message(ex.getMessage()).build();
     }
+
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ExceptionResponse handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
