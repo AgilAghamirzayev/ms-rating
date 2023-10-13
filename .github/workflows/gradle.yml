@@ -18,3 +18,5 @@ jobs:
           cache: gradle
       - name: Build with Gradle
         run: ./gradlew build
+      - name: Run unit tests with Gradle
+        run: ./gradlew test
