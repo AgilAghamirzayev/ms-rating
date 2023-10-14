@@ -17,7 +17,6 @@ spring:
     password: user
 
   jpa:
-    show-sql: false
     open-in-view: false
 
   liquibase:

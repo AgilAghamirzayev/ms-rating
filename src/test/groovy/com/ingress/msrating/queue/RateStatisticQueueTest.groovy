@@ -20,8 +20,8 @@ class RateStatisticQueueTest extends Specification {
 
     def "test publishMessage"() {
         given:
-        String queue = random.nextObject(String)
-        RatingStatistic ratingStatistic = random.nextObject(RatingStatistic)
+        def queue = random.nextObject(String)
+        def ratingStatistic = random.nextObject(RatingStatistic)
 
         when:
         rateStatisticQueue.publishMessage(queue, ratingStatistic)

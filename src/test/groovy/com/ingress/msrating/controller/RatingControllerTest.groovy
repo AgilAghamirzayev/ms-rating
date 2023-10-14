@@ -1,18 +1,24 @@
 package com.ingress.msrating.controller
 
 import com.ingress.msrating.exception.handler.CustomExceptionHandler
+import com.ingress.msrating.model.constants.HeaderConstants
 import com.ingress.msrating.model.request.RatingRequest
 import com.ingress.msrating.service.RatingService
+import io.github.benas.randombeans.EnhancedRandomBuilder
+import io.github.benas.randombeans.api.EnhancedRandom
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import spock.lang.Specification
 
+import static com.ingress.msrating.model.constants.HeaderConstants.USER_ID
 import static org.springframework.http.HttpStatus.BAD_REQUEST
 import static org.springframework.http.HttpStatus.NO_CONTENT
 import static org.springframework.http.MediaType.APPLICATION_JSON
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 
 class RatingControllerTest extends Specification {
+
+    EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandom()
 
     MockMvc mockMvc
     RatingService ratingService
@@ -27,7 +33,7 @@ class RatingControllerTest extends Specification {
 
     def "test rate product success case"() {
         given:
-        def userId = 1L
+        def userId = random.nextLong()
         def url = "/v1/ratings"
         def ratingRequest = new RatingRequest(2L, 3)
         def jsonRequest = """
@@ -39,7 +45,7 @@ class RatingControllerTest extends Specification {
 
         when:
         def result = mockMvc.perform(post(url)
-                .header("User-Id", userId)
+                .header(USER_ID, userId)
                 .contentType(APPLICATION_JSON)
                 .content(jsonRequest)
         ).andReturn()
@@ -52,7 +58,7 @@ class RatingControllerTest extends Specification {
 
     def "test rate product error case"() {
         given:
-        def userId = 1L
+        def userId = random.nextLong()
         def url = "/v1/ratings"
         def ratingRequest = new RatingRequest(2L, 8)
         def jsonRequest = """
@@ -62,9 +68,11 @@ class RatingControllerTest extends Specification {
                                     }
                                  """
 
+        def errorResponse = '{"validationErrors":[{"field":"rate","message":"must be less than or equal to 5"}]}'
+
         when:
         def result = mockMvc.perform(post(url)
-                .header("User-Id", userId)
+                .header(USER_ID, userId)
                 .contentType(APPLICATION_JSON)
                 .content(jsonRequest)
         ).andReturn()
@@ -72,5 +80,6 @@ class RatingControllerTest extends Specification {
         then:
         0 * ratingService.rate(userId, ratingRequest)
         result.response.status == BAD_REQUEST.value()
+        result.response.contentAsString == errorResponse
     }
 }

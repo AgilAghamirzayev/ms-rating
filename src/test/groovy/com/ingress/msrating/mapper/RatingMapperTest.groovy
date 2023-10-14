@@ -1,21 +1,27 @@
 package com.ingress.msrating.mapper
 
 import com.ingress.msrating.model.request.RatingRequest
+import io.github.benas.randombeans.EnhancedRandomBuilder
+import io.github.benas.randombeans.api.EnhancedRandom
 import spock.lang.Specification
+
+import static com.ingress.msrating.mapper.RatingMapper.RATING_MAPPER
 
 class RatingMapperTest extends Specification {
 
+    EnhancedRandom random = EnhancedRandomBuilder.aNewEnhancedRandom()
+
     def "map to rating entity"() {
         given:
-        def userId = 2L
-        def ratingRequest = new RatingRequest(1L, 4)
+        def userId = random.nextLong()
+        def ratingRequest = new RatingRequest(random.nextLong(), random.nextInt())
 
         when:
-        def ratingEntity = RatingMapper.RATING_MAPPER.toRatingEntity(userId, ratingRequest)
+        def ratingEntity = RATING_MAPPER.toRatingEntity(userId, ratingRequest)
 
         then:
-        ratingEntity.getUserId() == userId
-        ratingEntity.getProductId() == ratingRequest.productId()
-        ratingEntity.getRate() == ratingRequest.rate()
+        ratingEntity.userId == userId
+        ratingEntity.productId == ratingRequest.productId()
+        ratingEntity.rate == ratingRequest.rate()
     }
 }
