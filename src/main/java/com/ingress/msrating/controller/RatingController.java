@@ -1,5 +1,7 @@
 package com.ingress.msrating.controller;
 
+import static com.ingress.msrating.model.constants.HeaderConstants.USER_ID;
+
 import com.ingress.msrating.model.request.RatingRequest;
 import com.ingress.msrating.service.RatingService;
 import jakarta.validation.Valid;
@@ -20,8 +22,8 @@ public class RatingController {
     private final RatingService ratingService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void rate(@RequestHeader("user-id") Long userId,
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void rate(@RequestHeader(USER_ID) Long userId,
                      @RequestBody @Valid RatingRequest ratingRequest) {
 
         ratingService.rate(userId, ratingRequest);

@@ -2,20 +2,25 @@ server:
   port: 8888
 
 spring:
+  application:
+    name: ms-rating
+
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/rating
     username: postgres
     password: postgres
+
   rabbitmq:
     addresses: localhost:5672
     username: user
     password: user
 
+  jpa:
+    open-in-view: false
+
   liquibase:
     change-log: classpath:liquibase/changelog-master.yml
-  jpa:
-    show-sql: true
 
 rabbitmq:
   queue:
