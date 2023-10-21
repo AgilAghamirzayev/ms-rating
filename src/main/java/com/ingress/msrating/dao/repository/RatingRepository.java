@@ -2,7 +2,9 @@ package com.ingress.msrating.dao.repository;
 
 import com.ingress.msrating.dao.entity.RatingEntity;
 import com.ingress.msrating.model.client.RatingStatistic;
+
 import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
