@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -35,13 +36,11 @@ public class RatingEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RatingEntity that = (RatingEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(userId, that.userId) &&
-                Objects.equals(productId, that.productId) && Objects.equals(rate, that.rate) &&
-                Objects.equals(createdAt, that.createdAt);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, productId, rate, createdAt);
+        return Objects.hash(id);
     }
 }

@@ -21,7 +21,7 @@ class RatingMapperTest extends Specification {
 
         then:
         ratingEntity.userId == userId
-        ratingEntity.productId == ratingRequest.productId()
-        ratingEntity.rate == ratingRequest.rate()
+        ratingEntity.productId == ratingRequest.productId
+        ratingEntity.rate == ratingRequest.rate
     }
 }
