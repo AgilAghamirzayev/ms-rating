@@ -6,9 +6,7 @@ import static com.ingress.msrating.model.constants.LogColorsConstants.ANSI_RED;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ingress.msrating.annotation.LogIgnore;
-
 import java.lang.reflect.Parameter;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;

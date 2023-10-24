@@ -1,14 +1,17 @@
 package com.ingress.msrating.exception.handler;
 
+import static com.ingress.msrating.model.constants.ExceptionConstants.METHOD_NOT_ALLOWED_EXCEPTION;
 import static com.ingress.msrating.model.constants.ExceptionConstants.UNEXPECTED_EXCEPTION;
-import static org.springframework.http.HttpStatus.*;
+import static com.ingress.msrating.model.constants.ExceptionConstants.VALIDATION_ERROR;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import com.ingress.msrating.exception.ResourceNotFoundException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,7 +41,10 @@ public class CustomExceptionHandler {
     @ResponseStatus(METHOD_NOT_ALLOWED)
     public ExceptionResponse handle(MethodNotAllowedException ex) {
         log.error("MethodNotAllowedException: ", ex);
-        return ExceptionResponse.builder().message(ex.getMessage()).build();
+        return ExceptionResponse.builder()
+                .message(ex.getMessage())
+                .code(METHOD_NOT_ALLOWED_EXCEPTION.getCode())
+                .build();
     }
 
     @ResponseStatus(BAD_REQUEST)
@@ -46,7 +52,10 @@ public class CustomExceptionHandler {
     public ExceptionResponse handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         log.error("MethodArgumentNotValidException: ", ex);
         List<Map<String, String>> errorsForBadRequest = getErrorsForBadRequest(ex);
-        return ExceptionResponse.builder().validationErrors(errorsForBadRequest).build();
+        return ExceptionResponse.builder()
+                .validationErrors(errorsForBadRequest)
+                .code(VALIDATION_ERROR.getCode())
+                .build();
     }
 
     private List<Map<String, String>> getErrorsForBadRequest(MethodArgumentNotValidException ex) {
