@@ -68,7 +68,8 @@ class RatingControllerTest extends Specification {
                                     }
                                  """
 
-        def errorResponse = '{"validationErrors":[{"field":"rate","message":"must be less than or equal to 5"}]}'
+        def errorResponse = '{"code":"VALIDATION_ERROR",' +
+                '"validationErrors":[{"field":"rate","message":"must be less than or equal to 5"}]}'
 
         when:
         def result = mockMvc.perform(post(url)

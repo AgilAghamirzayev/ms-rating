@@ -20,13 +20,13 @@ class RatingServiceTest extends Specification {
     RatingService ratingService
     RatingRepository ratingRepository
     RabbitEnvironments rabbitEnvironments
-    RateStatisticQueue rateStatisticProducer
+    RateStatisticQueue rateStatisticQueue
 
     def setup() {
         ratingRepository = Mock()
-        rateStatisticProducer = Mock()
+        rateStatisticQueue = Mock()
         rabbitEnvironments = new RabbitEnvironments("rate_statistics_q")
-        ratingService = new RatingService(ratingRepository, rateStatisticProducer, rabbitEnvironments)
+        ratingService = new RatingService(ratingRepository, rateStatisticQueue, rabbitEnvironments)
     }
 
     def "rate product successfully"() {
@@ -46,7 +46,7 @@ class RatingServiceTest extends Specification {
         then:
         1 * ratingRepository.save(entity)
         1 * ratingRepository.getRatingStatistic(ratingRequest.productId()) >> Optional.of(ratingStatistic)
-        1 * rateStatisticProducer.publishMessage(rabbitEnvironments.name(), ratingStatistic)
+        1 * rateStatisticQueue.publishMessage(rabbitEnvironments.name(), ratingStatistic)
     }
 
     def "rate product throw ResourceNotFoundException"() {
@@ -66,7 +66,7 @@ class RatingServiceTest extends Specification {
         then:
         1 * ratingRepository.save(entity)
         1 * ratingRepository.getRatingStatistic(ratingRequest.productId()) >> Optional.empty()
-        0 * rateStatisticProducer.publishMessage(rabbitEnvironments.name(), ratingStatistic)
+        0 * rateStatisticQueue.publishMessage(rabbitEnvironments.name(), ratingStatistic)
 
         ResourceNotFoundException exception = thrown()
         exception.getCode() == RATING_NOT_FOUND.getCode()
