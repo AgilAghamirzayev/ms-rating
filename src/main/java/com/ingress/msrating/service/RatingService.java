@@ -24,8 +24,8 @@ public class RatingService {
 
     public void rate(Long userId, RatingRequest ratingRequest) {
         var rating = RATING_MAPPER.toRatingEntity(userId, ratingRequest);
-        var savedRating = ratingRepository.save(rating);
-        var rateStatistic = getRateStatistic(savedRating.getProductId());
+        ratingRepository.save(rating);
+        var rateStatistic = getRateStatistic(rating.getProductId());
         rateStatisticProducer.publishMessage(environmentConstants.getRatingQueue(), rateStatistic);
     }
 

@@ -1,6 +1,8 @@
 package com.ingress.msrating.exception.handler;
 
+import static com.ingress.msrating.model.constants.ExceptionConstants.METHOD_NOT_ALLOWED_EXCEPTION;
 import static com.ingress.msrating.model.constants.ExceptionConstants.UNEXPECTED_EXCEPTION;
+import static com.ingress.msrating.model.constants.ExceptionConstants.VALIDATION_ERROR;
 import static org.springframework.http.HttpStatus.*;
 
 import com.ingress.msrating.exception.ResourceNotFoundException;
@@ -36,14 +38,21 @@ public class CustomExceptionHandler {
     @ResponseStatus(METHOD_NOT_ALLOWED)
     public ExceptionResponse handle(MethodNotAllowedException ex) {
         log.error("MethodNotAllowedException: ", ex);
-        return ExceptionResponse.builder().message(ex.getMessage()).build();
+        return ExceptionResponse.builder()
+                .message(ex.getMessage())
+                .code(METHOD_NOT_ALLOWED_EXCEPTION.getCode())
+                .build();
     }
+
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ExceptionResponse handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         log.error("MethodArgumentNotValidException: ", ex);
         List<Map<String, String>> errorsForBadRequest = getErrorsForBadRequest(ex);
-        return ExceptionResponse.builder().validationErrors(errorsForBadRequest).build();
+        return ExceptionResponse.builder()
+                .validationErrors(errorsForBadRequest)
+                .code(VALIDATION_ERROR.getCode())
+                .build();
     }
 
     private List<Map<String, String>> getErrorsForBadRequest(MethodArgumentNotValidException ex) {
