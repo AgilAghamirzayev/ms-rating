@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Log
 @Component
 @RequiredArgsConstructor
-public class RateStatisticProducer {
+public class RateStatisticQueue {
 
     private final AmqpTemplate template;
 

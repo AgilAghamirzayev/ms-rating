@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
-public interface RatingRepository extends JpaRepository<RatingEntity, Long>, JpaSpecificationExecutor {
+public interface RatingRepository extends JpaRepository<RatingEntity, Long> {
 
     @Query("""
                     SELECT new com.ingress.msrating.model.client.RatingStatistic(
